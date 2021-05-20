@@ -10,9 +10,7 @@ $date = $obj->date;
 
 $slot = $obj->time;
 
-$doctor_id = $obj->doctor_id;
-$hospital = $obj->hospital_id;
-$count = $obj->count;
+$doctor_id = $obj->lab_id;
 
 $user_id = $obj->user_id;
 
@@ -23,7 +21,7 @@ $active = "active";
 if(!empty($user_id))
 {
 
-    $query = "SELECT * FROM appointment WHERE date='$date' and slot='$slot' and status='$active' and doctor_id='$doctor_id'";
+    $query = "SELECT * FROM appointment WHERE date='$date' and slot='$slot' and status='$active' and lab_id='$doctor_id'";
 
     $result=mysqli_query($check_conn,$query);
     $num=mysqli_num_rows($result);
@@ -37,13 +35,9 @@ if(!empty($user_id))
     else
     {
 
-        if($count == 0)
-        {
-            $insert_query = "INSERT INTO appointment(user_id,date,slot,doctor_id,patients,status)VALUES('$user_id','$date','$slot','$doctor_id','$patients','$active')";
-        }
-        else{
-            $insert_query = "INSERT INTO appointment(user_id,date,slot,doctor_id,patients,status,hospital_id)VALUES('$user_id','$date','$slot','$doctor_id','$patients','$active','$hospital')";
-        }
+       
+        $insert_query = "INSERT INTO appointment(user_id,date,slot,lab_id,patients,status)VALUES('$user_id','$date','$slot','$doctor_id','$patients','$active')";
+       
 
 
         $insert_query_run = mysqli_query($check_conn,$insert_query);
