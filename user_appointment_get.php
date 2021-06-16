@@ -7,7 +7,7 @@ include 'connection.php';
 $obj = json_decode(file_get_contents('php://input'));  
 
 $id = $obj->id;   // user_id
-// $id = "user_2";   // user_id
+// $id = "user_1";   // user_id
 
 //  for doctors appointment
 
@@ -48,9 +48,10 @@ $hospital = array();
 $appointment_id1 = array();
 $appointment_status1 = array();
 $counter1 = 0;
+$status_appoint = 'active';
 
 
-$query = "SELECT * FROM appointment WHERE user_id='$id' ORDER BY date ASC";
+$query = "SELECT * FROM appointment WHERE user_id='$id' AND status='$status_appoint' ORDER BY date ASC";
 
 $result=mysqli_query($check_conn,$query);
 $num=mysqli_num_rows($result);
