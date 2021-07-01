@@ -6,11 +6,12 @@ include 'connection.php';
 $obj = json_decode(file_get_contents('php://input'));   
 $email = $obj->email;
 $password = $obj->password;
+$status = "active";
 
 
 // Check if user is exit already or not-------------
 
-$query = "SELECT * FROM all_user WHERE email='$email' AND user_id LIKE 'lab_%'";
+$query = "SELECT * FROM all_user WHERE email='$email' AND user_id LIKE 'lab_%' AND status='$status'";
 
 $result=mysqli_query($check_conn,$query);
 $num=mysqli_num_rows($result);
@@ -33,7 +34,7 @@ if($num)
         $city = $row['city'];
         $address = $row['address'];
         $phone = $row['phone'];
-        $retObj=(object)["signal"=>1,"id"=>$message,"name"=>$name,"user_id"=>$user_id,"city"=>$city,"address"=>$address,"phone"=>$phone,"email"=>$email];
+        $retObj=(object)["signal"=>1,"id"=>$message,"name"=>$name,"user_id"=>$user_id,"city"=>$city,"address"=>$address,"phone"=>$phone,"email"=>$email,"password"=>$password];
         echo json_encode($retObj);
     }
     else{

@@ -6,11 +6,11 @@ include 'connection.php';
 $obj = json_decode(file_get_contents('php://input'));   
 $email = $obj->email;
 $password = $obj->password;
-
+$status = "active";
 
 // Check if user is exit already or not-------------
 
-$query = "SELECT * FROM all_user WHERE email='$email' AND user_id LIKE 'hospital_%'";
+$query = "SELECT * FROM all_user WHERE email='$email' AND user_id LIKE 'hospital_%' AND status='$status'";
 
 $result=mysqli_query($check_conn,$query);
 $num=mysqli_num_rows($result);
@@ -71,7 +71,7 @@ else
     //  count number of rows for unique category id----------
 
     
-    $message="Email not found. Plz sign up as a doctor!";
+    $message="Email not found!";
     $retObj=(object)["signal"=>2,"id"=>$message];
     echo json_encode($retObj);
       

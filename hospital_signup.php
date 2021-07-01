@@ -14,8 +14,7 @@ $address = $obj->address;
 $hospital = $obj->hospital;
 $numberDoctor = $obj->numberDoctor;
 $speciality = $obj->speciality;
-$status = "active";
-
+$status = "cancel";
 
 
 
@@ -53,24 +52,29 @@ else
         // $category_query_run = mysqli_query($check_conn,$category_query);
         // if($category_query_run)
         // {
-    
-            //  inserting data
-            $insert_query = "INSERT INTO all_user(user_id,name,category_id,email,password,city,phone,address,status)VALUES('$user_id','$name','$cate','$email','$password','$city','$phone','$address','$status');
-                             INSERT INTO hospital(user_id,hospital_name,no_doctors,disease_treated)VALUES('$user_id','$hospital','$numberDoctor','$speciality')";
-            $insert_query_run = $check_conn -> multi_query($insert_query);
-            if($insert_query_run)
+
+            if(!empty($email))
             {
+                //  inserting data
+                $insert_query = "INSERT INTO all_user(user_id,name,category_id,email,password,city,phone,address,status)VALUES('$user_id','$name','$cate','$email','$password','$city','$phone','$address','$status');
+                INSERT INTO hospital(user_id,hospital_name,no_doctors,disease_treated)VALUES('$user_id','$hospital','$numberDoctor','$speciality')";
+                $insert_query_run = $check_conn -> multi_query($insert_query);
+                if($insert_query_run)
+                {
                 // mysqli_close($check_conn);
-                $message="Account created successfully! Plz Login";
+                $message="Account created successfully! Login after 2 days";
                 $retObj=(object)["id"=>$message,"signal"=>2];
                 echo json_encode($retObj);
-            }
-            else{
+                }
+                else{
                 $message = "Unsuccessfull, Try again later!";
                 echo $message;
                 $retObj=(object)["id"=>$message,"signal"=>1];
                 echo json_encode($retObj);
+                }
             }
+    
+            
         // }
         
 

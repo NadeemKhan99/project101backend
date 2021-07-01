@@ -14,8 +14,8 @@ $address = $obj->address;
 $speciality = $obj->speciality;
 $start = $obj->start;
 $end = $obj->end;
-$status = "active";
-$day = "M,T,W,TH,F,Sat,Sun";
+$fee = $obj->fee;
+$status = "cancel";
 
 
 
@@ -47,26 +47,32 @@ else
     {
         // $cal_sum = $num_count + 1;
         $user_id = $cate."_".($num_count +1);
+
+
+            if(!empty($email))
+            {
+                     //  inserting data
+                    $insert_query = "INSERT INTO all_user(user_id,name,category_id,email,password,city,phone,address,status)VALUES('$user_id','$name','$cate','$email','$password','$city','$phone','$address','$status');
+                    INSERT INTO lab(user_id,services,fee)VALUES('$user_id','$speciality','$fee');
+                    INSERT INTO timing(user_id,start,end)VALUES('$user_id','$start','$end')";
+                    $insert_query_run = $check_conn -> multi_query($insert_query);
+                    if($insert_query_run)
+                    {
+                    // mysqli_close($check_conn);
+                    $message="Account created successfully! Login after 2 days";
+                    $retObj=(object)["id"=>$message,"signal"=>2];
+                    echo json_encode($retObj);
+                    }
+                    else{
+                    $message = "Unsuccessfull, Try again later!";
+                    echo $message;
+                    $retObj=(object)["id"=>$message,"signal"=>1];
+                    echo json_encode($retObj);
+                    }
+            }
         
     
-            //  inserting data
-            $insert_query = "INSERT INTO all_user(user_id,name,category_id,email,password,city,phone,address,status)VALUES('$user_id','$name','$cate','$email','$password','$city','$phone','$address','$status');
-                             INSERT INTO lab(user_id,services)VALUES('$user_id','$speciality');
-                             INSERT INTO timing(user_id,day,start,end)VALUES('$user_id','$day','$start','$end')";
-            $insert_query_run = $check_conn -> multi_query($insert_query);
-            if($insert_query_run)
-            {
-                // mysqli_close($check_conn);
-                $message="Account created successfully! Now login";
-                $retObj=(object)["id"=>$message,"signal"=>2];
-                echo json_encode($retObj);
-            }
-            else{
-                $message = "Unsuccessfull, Try again later!";
-                echo $message;
-                $retObj=(object)["id"=>$message,"signal"=>1];
-                echo json_encode($retObj);
-            }
+           
        
         
 

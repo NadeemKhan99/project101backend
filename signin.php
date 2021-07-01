@@ -6,13 +6,13 @@ include 'connection.php';
 $obj = json_decode(file_get_contents('php://input'));   
 $email = $obj->email;
 $password = $obj->password;
-// $email = "mumtaz@gmail.com";
-// $password = "12345657";
-
+// $email = "khadija.malik@gmail.com";
+// $password = "123456";
+$status = "active";
 
 // Check if user is exit already or not-------------
 
-$query = "SELECT * FROM all_user WHERE email='$email' AND user_id LIKE 'doctor_%'";
+$query = "SELECT * FROM all_user WHERE email='$email' AND user_id LIKE 'doctor_%' AND status='$status'";
 
 $result=mysqli_query($check_conn,$query);
 $num=mysqli_num_rows($result);
@@ -20,7 +20,6 @@ $num=mysqli_num_rows($result);
 
 $hospital_id = array();
 $names_hospital = array();
-$day = "";
 
 $start = array();
 $end = array();
@@ -80,7 +79,6 @@ if($num)
                             $speciality = $row1["speciality"];
                             $qualification = $row1["qualification"];
                             $clinic = $row1["clinic"];
-                            $day =  $row1["day"];
                             $row1["start"];
                             array_push($start,$row1['start']);
                             array_push($end,$row1["end"]);
@@ -148,7 +146,7 @@ if($num)
             $address = $row['address'];
             $phone = $row['phone'];
             $counter = sizeof($start);
-            $retObj=(object)["signal"=>1,"id"=>$message,"counter"=>$counter,"name"=>$name,"user_id"=>$doctor_id,"city"=>$city,"address"=>$address,"phone"=>$phone,"email"=>$email,"password"=>$password,"experience"=>$experience,"fees"=>$fees,"qualification"=>$qualification,"speciality"=>$speciality,"clinic"=>$clinic,"day"=>$day,"start"=>$start,"end"=>$end,"hospital_ids"=>$hospital_id,"hospital_name"=>$names_hospital];
+            $retObj=(object)["signal"=>1,"id"=>$message,"counter"=>$counter,"name"=>$name,"user_id"=>$doctor_id,"city"=>$city,"address"=>$address,"phone"=>$phone,"email"=>$email,"password"=>$password,"experience"=>$experience,"fees"=>$fees,"qualification"=>$qualification,"speciality"=>$speciality,"clinic"=>$clinic,"start"=>$start,"end"=>$end,"hospital_ids"=>$hospital_id,"hospital_name"=>$names_hospital];
             echo json_encode($retObj);
 
 

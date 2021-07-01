@@ -19,7 +19,7 @@ $query_run=mysqli_query($check_conn,$get_hospital_id);
 
 if($query_run)
 {
-    $row=$result->fetch_assoc();
+    $row=$query_run->fetch_assoc();
 
     $hospital_id = $row['user_id'];
 

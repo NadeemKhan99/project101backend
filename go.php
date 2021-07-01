@@ -44,24 +44,27 @@ else
         // $cal_sum = $num_count + 1;
         $user_id = $cate."_".($num_count +1);
         
-        
-            //  inserting data
-            $insert_query = "INSERT INTO all_user(user_id,name,category_id,email,password,city,phone,address,status)VALUES('$user_id','$name','$cate','$email','$password','$city','$phone','$address','$status')";
-                            
-            $result=mysqli_query($check_conn,$insert_query);
-            if($result)
+            if(!empty($email))
             {
-                // mysqli_close($check_conn);
-                $message="Account created successfully! Plz Login";
-                $retObj=(object)["id"=>$message,"signal"=>2];
-                echo json_encode($retObj);
+                //  inserting data
+                $insert_query = "INSERT INTO all_user(user_id,name,category_id,email,password,city,phone,address,status)VALUES('$user_id','$name','$cate','$email','$password','$city','$phone','$address','$status')";
+                                
+                $result=mysqli_query($check_conn,$insert_query);
+                if($result)
+                {
+                    // mysqli_close($check_conn);
+                    $message="Account created successfully! Plz Login";
+                    $retObj=(object)["id"=>$message,"signal"=>2];
+                    echo json_encode($retObj);
+                }
+                else{
+                    $message = "Unsuccessfull, Try again later!";
+                    echo $message;
+                    $retObj=(object)["id"=>$message,"signal"=>1];
+                    echo json_encode($retObj);
+                }
             }
-            else{
-                $message = "Unsuccessfull, Try again later!";
-                echo $message;
-                $retObj=(object)["id"=>$message,"signal"=>1];
-                echo json_encode($retObj);
-            }
+            
         
         
 

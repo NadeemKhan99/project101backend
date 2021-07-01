@@ -4,8 +4,8 @@ include 'connection.php';
 
 
 $obj = json_decode(file_get_contents('php://input'));   
-$city = $obj->city;
-$speciality = $obj->speciality;
+$city = $obj->id;
+
 
 // $city = "lahore";
 // $speciality ="neurologist";
@@ -72,7 +72,7 @@ $status = "active";
 
 //   get doctors with clinic----------------------------
 
-$query = "SELECT * FROM ((all_user INNER JOIN doctor ON all_user.user_id=doctor.user_id AND all_user.city='$city' AND doctor.speciality='$speciality' AND all_user.status='$status' AND doctor.clinic != '$nothing') INNER JOIN timing ON all_user.user_id=timing.user_id)";
+$query = "SELECT * FROM ((all_user INNER JOIN doctor ON all_user.user_id=doctor.user_id AND all_user.city='$city' AND all_user.status='$status' AND doctor.clinic != '$nothing') INNER JOIN timing ON all_user.user_id=timing.user_id)";
 
 $result=mysqli_query($check_conn,$query);
 
@@ -122,7 +122,7 @@ else
 //  getting all doctors data-----------
 
 
-$query1 = "SELECT * FROM ((all_user INNER JOIN doctor ON all_user.user_id=doctor.user_id AND all_user.city='$city' AND doctor.speciality='$speciality' AND status='$status' AND doctor.clinic = '$nothing') INNER JOIN hospital_doc ON all_user.user_id=hospital_doc.doctor_id)";
+$query1 = "SELECT * FROM ((all_user INNER JOIN doctor ON all_user.user_id=doctor.user_id AND all_user.city='$city' AND status='$status' AND doctor.clinic = '$nothing') INNER JOIN hospital_doc ON all_user.user_id=hospital_doc.doctor_id)";
 $result1=mysqli_query($check_conn,$query1);
 
 if($result1)
@@ -185,7 +185,7 @@ else
 }
 
 
-$query3 = "SELECT * FROM ((all_user INNER JOIN doctor ON all_user.user_id=doctor.user_id AND all_user.city='$city' AND doctor.speciality='$speciality' AND all_user.status='$status' AND doctor.clinic != '$nothing') INNER JOIN hospital_doc ON all_user.user_id=hospital_doc.doctor_id)";
+$query3 = "SELECT * FROM ((all_user INNER JOIN doctor ON all_user.user_id=doctor.user_id AND all_user.city='$city' AND all_user.status='$status' AND doctor.clinic != '$nothing') INNER JOIN hospital_doc ON all_user.user_id=hospital_doc.doctor_id)";
 $result3=mysqli_query($check_conn,$query3);
 
 if($result3)

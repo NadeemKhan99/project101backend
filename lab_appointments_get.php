@@ -21,6 +21,8 @@ $patients = array();
 $lab_id = array();
 $appointment_id = array();
 $appointment_status = array();
+$service = array();
+$fee = array();
 $counter = 0;
 
 
@@ -46,6 +48,8 @@ if($num)
             array_push($lab_id,$row['user_id']);
             array_push($appointment_id,$row['id']);
             array_push($appointment_status,$row['status']);
+            array_push($service,$row['services']);
+            array_push($fee,$row['lab_fee']);
             $my_user = $row['user_id'];
 
 
@@ -73,7 +77,7 @@ if($num)
     }
 
 
-    $retObj=(object)["signal"=>1,"counter"=>$counter,"name"=>$name,"email"=>$email,"city"=>$city,"phone"=>$phone,"date"=>$date,"slot"=>$slot,"patients"=>$patients,"appointment_id"=>$appointment_id,"status"=>$appointment_status,"address"=>$address];
+    $retObj=(object)["signal"=>1,"counter"=>$counter,"name"=>$name,"email"=>$email,"city"=>$city,"phone"=>$phone,"date"=>$date,"slot"=>$slot,"patients"=>$patients,"appointment_id"=>$appointment_id,"status"=>$appointment_status,"address"=>$address,"service"=>$service,"fee"=>$fee];
     echo json_encode($retObj);
 }
 

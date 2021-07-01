@@ -18,9 +18,7 @@ $qualification = $obj->qualification;
 $speciality = $obj->speciality;
 $start = $obj->start;
 $end = $obj->end;
-$hospital_id = "nothing";
-$day = "M,T,W,TH,F,Sat,Sun";
-$status = "active";
+$status = "cancel";
 
 
 
@@ -58,25 +56,31 @@ else
         // $category_query_run = mysqli_query($check_conn,$category_query);
         // if($category_query_run)
         // {
-    
-            //  inserting data
-            $insert_query = "INSERT INTO all_user(user_id,name,category_id,email,password,city,phone,address,status)VALUES('$user_id','$name','$cate','$email','$password','$city','$phone','$address','$status');
-                             INSERT INTO doctor(user_id,experience,fees,speciality,qualification,clinic,hospital_id)VALUES('$user_id','$experience','$fees','$speciality','$qualification','$clinic','$hospital_id');
-                             INSERT INTO timing(user_id,day,start,end)VALUES('$user_id','$day','$start','$end')";
-            $insert_query_run = $check_conn -> multi_query($insert_query);
-            if($insert_query_run)
+
+            if(!empty($email))
             {
+                //  inserting data
+                $insert_query = "INSERT INTO all_user(user_id,name,category_id,email,password,city,phone,address,status)VALUES('$user_id','$name','$cate','$email','$password','$city','$phone','$address','$status');
+                INSERT INTO doctor(user_id,experience,fees,speciality,qualification,clinic)VALUES('$user_id','$experience','$fees','$speciality','$qualification','$clinic');
+                INSERT INTO timing(user_id,start,end)VALUES('$user_id','$start','$end')";
+                $insert_query_run = $check_conn -> multi_query($insert_query);
+                if($insert_query_run)
+                {
                 // mysqli_close($check_conn);
-                $message="Account created successfully! Plz Login";
+                $message="Account created successfully! Plz login after 2 days";
                 $retObj=(object)["id"=>$message,"signal"=>2];
                 echo json_encode($retObj);
-            }
-            else{
+                }
+                else{
                 $message = "Unsuccessfull, Try again later!";
                 echo $message;
                 $retObj=(object)["id"=>$message,"signal"=>1];
                 echo json_encode($retObj);
+                }
+
             }
+    
+            
         // }
         
 

@@ -23,6 +23,8 @@ $special = array();
 $start = array();
 $end = array();
 $counter = 0;
+$fee = array();
+$active = "active";
 
 
 
@@ -32,7 +34,7 @@ $counter = 0;
 
 //   get doctors with clinic----------------------------
 
-$query = "SELECT * FROM ((all_user INNER JOIN lab ON all_user.user_id=lab.user_id AND all_user.city='$city') INNER JOIN timing ON all_user.user_id=timing.user_id)";
+$query = "SELECT * FROM ((all_user INNER JOIN lab ON all_user.user_id=lab.user_id AND all_user.city='$city' AND all_user.status='$active') INNER JOIN timing ON all_user.user_id=timing.user_id)";
 
 $result=mysqli_query($check_conn,$query);
 
@@ -49,10 +51,11 @@ if($result)
         array_push($special,$row["services"]);
         array_push($start,$row["start"]);
         array_push($end,$row["end"]);
+        array_push($fee,$row["fee"]);
         $counter = $counter + 1;
     }
 
-    $retObj=(object)["signal"=>1,"counter"=>$counter,"name"=>$name,"email"=>$email,"city"=>$cities,"phone"=>$phone,"address"=>$address,"speciality"=>$special,"start"=>$start,"end"=>$end,"lab_id"=>$doctor_id];
+    $retObj=(object)["signal"=>1,"counter"=>$counter,"name"=>$name,"email"=>$email,"city"=>$cities,"phone"=>$phone,"address"=>$address,"speciality"=>$special,"start"=>$start,"end"=>$end,"lab_id"=>$doctor_id,"fee"=>$fee];
     echo json_encode($retObj);
 }
 

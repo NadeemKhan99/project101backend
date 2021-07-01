@@ -16,6 +16,10 @@ $user_id = $obj->user_id;
 
 $patients = $obj->patients;
 
+$service = $obj->service;
+
+$fee = $obj->fee;
+
 $active = "active";
 
 if(!empty($user_id))
@@ -36,7 +40,7 @@ if(!empty($user_id))
     {
 
        
-        $insert_query = "INSERT INTO appointment(user_id,date,slot,lab_id,patients,status)VALUES('$user_id','$date','$slot','$doctor_id','$patients','$active')";
+        $insert_query = "INSERT INTO appointment(user_id,date,slot,lab_id,patients,status,services,lab_fee)VALUES('$user_id','$date','$slot','$doctor_id','$patients','$active','$service','$fee')";
        
 
 

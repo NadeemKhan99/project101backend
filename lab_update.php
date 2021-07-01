@@ -13,6 +13,7 @@ $start = $obj->start;
 $end = $obj->end;
 $speciality = $obj->speciality;
 $lab = $obj->lab;
+$fee = $obj->fee;
 
 
 
@@ -23,7 +24,7 @@ if(!empty($start) && !empty($speciality))
 {
 
     $insert_query = "UPDATE all_user SET name='$name',city='$city',phone='$phone',address='$address' Where user_id = '$lab';
-                    UPDATE lab SET services='$speciality' WHERE user_id = '$lab';
+                    UPDATE lab SET services='$speciality',fee='$fee' WHERE user_id = '$lab';
                     UPDATE timing SET start = '$start',end = '$end' WHERE user_id = '$lab'";
                     
     $insert_query_run = $check_conn -> multi_query($insert_query);
@@ -102,7 +103,7 @@ elseif(!empty($start) && empty($speciality))
 elseif(empty($start) && !empty($speciality))
 {
     $insert_query = "UPDATE all_user SET name='$name',city='$city',phone='$phone',address='$address' Where user_id = '$lab';
-    UPDATE lab SET services='$speciality' WHERE user_id = '$lab'";
+    UPDATE lab SET services='$speciality',fee='$fee' WHERE user_id = '$lab'";
         
     $insert_query_run = $check_conn -> multi_query($insert_query);
     if($insert_query_run)
